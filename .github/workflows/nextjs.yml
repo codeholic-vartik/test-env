@@ -17,13 +17,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Set up Node.js environment
+      # Set up Node.js environment (use Node.js v18 or later)
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '18'  # Use Node.js v18 or a higher version (e.g., 19 or 20)
 
-      # Create or update .env file
+      # Create or update .env file (if needed)
       - name: Create or Update .env file
         run: |
           echo "NEXT_PUBLIC_ENVIRONMENT=${{ secrets.NEXT_PUBLIC_ENVIRONMENT }}" > .env
