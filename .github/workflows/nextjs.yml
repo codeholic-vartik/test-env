@@ -29,16 +29,12 @@ jobs:
         run: |
           echo "NEXT_PUBLIC_ENVIRONMENT: ${{ vars.NEXT_PUBLIC_ENVIRONMENT }}"
           echo "NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}"
-          echo "NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY }}"
-          echo "NEXT_PUBLIC_OTHER_VAR: ${{ secrets.NEXT_PUBLIC_OTHER_VAR }}"
 
       # Create or Update .env file with environment variables
       - name: Create or Update .env file
         run: |
           echo "NEXT_PUBLIC_ENVIRONMENT=${{ vars.NEXT_PUBLIC_ENVIRONMENT }}" > .env
           echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env
-          echo "NEXT_PUBLIC_API_KEY=${{ secrets.NEXT_PUBLIC_API_KEY }}" >> .env
-          echo "NEXT_PUBLIC_OTHER_VAR=${{ secrets.NEXT_PUBLIC_OTHER_VAR }}" >> .env
 
       # Install dependencies
       - name: Install dependencies
