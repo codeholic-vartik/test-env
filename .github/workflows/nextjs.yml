@@ -24,6 +24,19 @@ jobs:
         with:
           node-version: '18'  # Use Node.js v18 or a higher version (e.g., 19 or 20)
 
+      # Debugging step to check the environment variables
+      - name: Debug Environment Variables
+        run: |
+          echo "NEXT_PUBLIC_ENVIRONMENT: ${{ secrets.NEXT_PUBLIC_ENVIRONMENT }}"
+          echo "NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}"
+          echo "NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY }}"
+          echo "NEXT_PUBLIC_OTHER_VAR: ${{ secrets.NEXT_PUBLIC_OTHER_VAR }}"
+        env:
+          NEXT_PUBLIC_ENVIRONMENT: ${{ secrets.NEXT_PUBLIC_ENVIRONMENT }}
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY }}
+          NEXT_PUBLIC_OTHER_VAR: ${{ secrets.NEXT_PUBLIC_OTHER_VAR }}
+
       # Create or Update .env file with environment variables
       - name: Create or Update .env file
         run: |
@@ -49,11 +62,11 @@ jobs:
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
         with:
-          vercel-token: JjXtq9k2vI4YXP4cNCGmGU98
-          vercel-project-id: prj_llwEIYbfHV2DqBzkPC8KkPPf2K6K
-          vercel-org-id: team_1BuRDQY75jcHXnQVaecKvw2h
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-branch: ${{ github.ref }}
         env:
-          VERCEL_TOKEN: JjXtq9k2vI4YXP4cNCGmGU98
-          VERCEL_PROJECT_ID: prj_llwEIYbfHV2DqBzkPC8KkPPf2K6K
-          VERCEL_ORG_ID: team_1BuRDQY75jcHXnQVaecKvw2h
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
