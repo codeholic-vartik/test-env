@@ -3,10 +3,10 @@ name: Deploy Next.js to Vercel
 on:
   push:
     branches:
-      - main  # Trigger the workflow when changes are pushed to the `main` branch.
+      - main
   pull_request:
     branches:
-      - main  # Also trigger when a pull request is opened for `main`.
+      - main
 
 jobs:
   deploy:
@@ -21,19 +21,25 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # You can specify the Node.js version you want to use.
+          node-version: '16'
+
+      # Create or update .env file
+      - name: Create or Update .env file
+        run: |
+          echo "NEXT_PUBLIC_ENVIRONMENT=${{ secrets.NEXT_PUBLIC_ENVIRONMENT }}" > .env
+          echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env
+          echo "NEXT_PUBLIC_API_KEY=${{ secrets.NEXT_PUBLIC_API_KEY }}" >> .env
+          echo "NEXT_PUBLIC_OTHER_VAR=${{ secrets.NEXT_PUBLIC_OTHER_VAR }}" >> .env
 
       # Install dependencies
       - name: Install dependencies
-        run: |
-          npm install
+        run: npm install
 
-      # Build the Next.js app
+      # Build Next.js app
       - name: Build Next.js app
-        run: |
-          npm run build
+        run: npm run build
 
-      # Deploy to Vercel (or your preferred platform)
+      # Deploy to Vercel
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
         with:
