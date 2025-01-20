@@ -24,31 +24,21 @@ jobs:
         with:
           node-version: '18'  # Use Node.js v18 or a higher version (e.g., 19 or 20)
 
-      # Debugging step to check the environment variables
-      - name: Debug Environment Variables
+      # Debugging step to check the environment variables and secrets
+      - name: Debug Environment Variables and Secrets
         run: |
-          echo "NEXT_PUBLIC_ENVIRONMENT: ${{ secrets.NEXT_PUBLIC_ENVIRONMENT }}"
+          echo "NEXT_PUBLIC_ENVIRONMENT: ${{ vars.NEXT_PUBLIC_ENVIRONMENT }}"
           echo "NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}"
           echo "NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY }}"
           echo "NEXT_PUBLIC_OTHER_VAR: ${{ secrets.NEXT_PUBLIC_OTHER_VAR }}"
-        env:
-          NEXT_PUBLIC_ENVIRONMENT: ${{ secrets.NEXT_PUBLIC_ENVIRONMENT }}
-          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-          NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY }}
-          NEXT_PUBLIC_OTHER_VAR: ${{ secrets.NEXT_PUBLIC_OTHER_VAR }}
 
       # Create or Update .env file with environment variables
       - name: Create or Update .env file
         run: |
-          echo "NEXT_PUBLIC_ENVIRONMENT=${{ secrets.NEXT_PUBLIC_ENVIRONMENT }}" > .env
+          echo "NEXT_PUBLIC_ENVIRONMENT=${{ vars.NEXT_PUBLIC_ENVIRONMENT }}" > .env
           echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env
           echo "NEXT_PUBLIC_API_KEY=${{ secrets.NEXT_PUBLIC_API_KEY }}" >> .env
           echo "NEXT_PUBLIC_OTHER_VAR=${{ secrets.NEXT_PUBLIC_OTHER_VAR }}" >> .env
-        env:
-          NEXT_PUBLIC_ENVIRONMENT: ${{ secrets.NEXT_PUBLIC_ENVIRONMENT }}
-          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-          NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY }}
-          NEXT_PUBLIC_OTHER_VAR: ${{ secrets.NEXT_PUBLIC_OTHER_VAR }}
 
       # Install dependencies
       - name: Install dependencies
