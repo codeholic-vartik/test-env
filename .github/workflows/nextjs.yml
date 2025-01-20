@@ -3,14 +3,15 @@ name: Deploy Next.js to Vercel
 on:
   push:
     branches:
-      - main
+      - Production
   pull_request:
     branches:
-      - main
+      - Production
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: Production  # Specify the environment here
 
     steps:
       # Checkout the code from the repository
